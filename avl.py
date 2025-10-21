@@ -1,5 +1,6 @@
 # exemplo: 10,5,15,3,1,20,25,18
 
+
 class No:
     def __init__(self, valor):
         self.valor = valor
@@ -17,20 +18,19 @@ class Arvore:
             return 0
         else:
             return no.altura
-        
+
     def atualizar_altura(self, no):
         altura_esquerda = self.obter_altura(no.esquerda)
         altura_direita = self.obter_altura(no.direita)
-        no.altura =  1 + max(altura_esquerda, altura_direita)
+        no.altura = 1 + max(altura_esquerda, altura_direita)
 
     def obter_fator_balanceamento(self, no):
         if no is None:
             return 0
-        
-        return self.obter_altura(no.esquerda) - self.obter_altura(no.direita)
-    
 
-    def inserir(self, valor, altura = 1):
+        return self.obter_altura(no.esquerda) - self.obter_altura(no.direita)
+
+    def inserir(self, valor, altura=1):
         caminho = []
 
         if self.raiz is None:
@@ -72,6 +72,30 @@ class Arvore:
                 no_atual = no_atual.direita
 
         return False
+
+    def rotacao_direita(self, no_desbalanceado_z):
+        y = no_desbalanceado_z.esquerda
+        t3 = y.direita
+
+        y.direita = no_desbalanceado_z
+        no_desbalanceado_z.esquerda = t3
+
+        self.atualizar_altura(no_desbalanceado_z)
+        self.atualizar_altura(y)
+
+        return y
+
+    def rotacao_esquerda(self, no_desbalanceado_z):
+        y = no_desbalanceado_z.direita
+        t2 = y.esquerda
+
+        y.esquerda = no_desbalanceado_z
+        no_desbalanceado_z.direita = t2
+
+        self.atualizar_altura(no_desbalanceado_z)
+        self.atualizar_altura(y)
+
+        return y
 
 
 if __name__ == "__main__":
