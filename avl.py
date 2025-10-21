@@ -6,12 +6,12 @@ class No:
         self.valor = valor
         self.esquerda = None
         self.direita = None
+        self.altura = 1
 
 
 class Arvore:
     def __init__(self):
         self.raiz = None
-        self.altura = 1
 
     def obter_altura(self, no):
         if no is None:
@@ -57,6 +57,24 @@ class Arvore:
             else:
                 break
 
+        for no_ancestral in caminho:
+            self.atualizar_altura(no_ancestral)
+
+            fator_balanceamento = self.obter_fator_balanceamento(no_ancestral)
+
+            if fator_balanceamento > 1:
+                if valor < no_ancestral.esquerda.valor:
+                    no_ancestral = self.rotacao_direita(no_ancestral)
+                elif valor > no_ancestral.esquerda.valor:
+                    no_ancestral.esquerda = self.rotacao_esquerda(no_ancestral.esquerda)
+                    no_ancestral = self.rotacao_direita(no_ancestral)
+            if fator_balanceamento < -1:
+                if valor > no_ancestral.direita.valor:
+                    no_ancestral = self.rotacao_esquerda(no_ancestral)
+                elif valor < no_ancestral.direita.valor:
+                    no_ancestral.direita = self.rotacao_direita(no_ancestral.direita)
+                    no_ancestral = self.rotacao_esquerda(no_ancestral)
+
     def buscar(self, valor):
         no_atual = self.raiz
 
@@ -99,4 +117,13 @@ class Arvore:
 
 
 if __name__ == "__main__":
-    print("Teste principal")
+    valores = [10,5,15,3,1,20,25,18]
+
+    arvore = Arvore()
+
+    for valor in valores:
+        arvore.inserir(valor)
+
+    for no in valores:
+        print(arvore.buscar(no))
+
