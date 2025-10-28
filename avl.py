@@ -127,6 +127,15 @@ class Arvore:
         self.atualizar_altura(y)
 
         return y
+    
+    def imprimir_arvore(self, no=None, nivel=0, prefixo="Raiz: "):
+        if no is None:
+            no = self.raiz
+        print(" " * (nivel * 4) + prefixo + str(no.valor))
+        if no.esquerda is not None:
+            self.imprimir_arvore(no.esquerda, nivel + 1, "Esq- ")
+        if no.direita is not None:
+            self.imprimir_arvore(no.direita, nivel + 1, "Dir- ")
 
 
 if __name__ == "__main__":
@@ -139,3 +148,8 @@ if __name__ == "__main__":
 
     for no in valores:
         print(no, arvore.buscar(no))
+
+    print("\nEstrutura da árvore:")
+    arvore.imprimir_arvore()
+
+    
