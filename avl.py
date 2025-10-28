@@ -1,5 +1,6 @@
 # exemplo: 10,5,15,3,1,20,25,18
 
+# Integrantes: Pedro Henrique Siqueira, Pedro Lima, Vitor Macedo, Vicenzo Goulart, Marcelo Lemes, Éverson Prieto
 
 class No:
     def __init__(self, valor):
